@@ -41,7 +41,7 @@ class RightFrame(tk.Frame):
         volume = 3
         
         ## SCATTER
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(4,3))
         ax.scatter(dataOne, dataTwo, c='#34D63D', s=volume, alpha=0.5)
 
         ax.set_title('TK embedded matPLot')
@@ -55,7 +55,7 @@ class RightFrame(tk.Frame):
         fig.tight_layout()
 
         ## BAR
-        figBar = Figure(figsize=(5,4), dpi=100)
+        figBar = Figure(figsize=(4,3), dpi=100)
         axBar = figBar.add_subplot(111)
         data = (20, 35, 30, 35, 27)
 
