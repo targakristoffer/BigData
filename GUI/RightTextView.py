@@ -18,3 +18,4 @@ class RightTextView(tk.Text):
 
     def packself(self):
         self.grid(row=1, column=2)
+

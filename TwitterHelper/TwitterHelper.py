@@ -3,10 +3,10 @@ from tweepy.streaming import StreamListener
 import json
 
 
-ckey="9dTrk09s8pR2qoEmgqulWeULV"
-csecret="0CmbfXpvWGrpk9sqsolyj5gzj6y0yIiKOo92l3vZGFHQdnlK8c"
-atoken="985614332590424065-5la3nVJVxT9KaKeHlfds0FvsZi7YpdE"
-asecret="4Plal7AhC48BOckIQ9VTcasrZd1cUWt5UzLoPaBAe1RXz"
+ckey="2AvbG84msbL34BEHslMsWZTUR"
+csecret="gzEENqmZoMl2hhHvDIdaWzIF9ShMSLO0o7gh8csZnfqKdK6Y9H"
+atoken="14113114-1we8sJQs1z54dWfjWbUwZtDtkQYf3kDOrXLUMBFkZ"
+asecret="6Sq95ezVVRNTuLw7grKzm4czA32VqmlM0QwvaLjWLNl5A"
 
 
 
@@ -21,20 +21,18 @@ class TwitterHelper():
 
 
 
-    def get_tweet(self, keyword):
+    def get_tweet(self, keyword): 
 
         numberOfLines = 50
         tweetConn = TwitterConn(numberOfLines)
 
+
+
+
         twitterStream = Stream(self.auth, tweetConn)
-        try:
-            twitterStream.filter(track=[keyword], async=True)
-        except ReadTimeoutError:
-            TwitterConn.disconnect()
-            print('[+] READTIMEOUTERROR')
-        except a >= self.file_len("twitter-out.text"):
-            TwitterConn.disconnect()
-            print('[+]other exception ')
+        twitterStream.filter(track=[keyword], async=True)
+        
+
         
 
     def file_len(fname):
@@ -49,7 +47,7 @@ class TwitterConn(StreamListener):
     def __init__(self, numberOfLines):
         super().__init__()
         self.numberOfLines = numberOfLines
-        
+        self.count = 0
        
 
     def on_data(self, data):
@@ -60,6 +58,8 @@ class TwitterConn(StreamListener):
 
             all_data = json.loads(data)
             tweet = all_data["text"]
+
+            self.count = self.count + 1
 
             output = open("twitter-out.txt", "a")
             output.write(tweet)
@@ -74,17 +74,18 @@ class TwitterConn(StreamListener):
     
         except:
             if self.numberOfLines <= TwitterHelper.file_len("twitter-out.txt"):
-                print('[+] other exception')    
+                print('[+] other exception')
                 return False
 
             print(TwitterHelper.file_len("twitter-out.txt"))
+            print(self.count)
             return True
         
 
 
 
     def on_error(self, status):
-        output.close()
+        
         print(status)
         if(status == 420):
             return False

@@ -10,6 +10,7 @@ import subprocess
 
 from GUI.LeftTextView import LeftTextView
 from GUI.RightTextView import RightTextView
+from GUI.RightFrame import RightFrame
 from GUI.MenuBar import MenuBar
 from GUI.BasicButton import Button_run
 from GUI.TweetButton import Button_tweet
@@ -231,7 +232,8 @@ class GUI(tk.Frame):
         def getTweetButton():
             print('[+] Get tweet button working...')
             print('-----'*20)
-            self.TwitterHelper.get_tweet('obama')
+            a = keywordEntry.get()
+            self.TwitterHelper.get_tweet(a)
 
 
         btn_getTweet_row = 5
@@ -315,7 +317,8 @@ class GUI(tk.Frame):
         ### TWEET RIGHT VIEW 
         ## 
         #
-        self.tweetrightscreen = self.initRightTextView(tweetLowerTab, righttext, 21, 50)
+
+        self.tweetrightscreen = self.initRightView(tweetLowerTab)
         
 
 
@@ -343,6 +346,13 @@ class GUI(tk.Frame):
         rt = RightTextView(parent, height, width)
         rt.packself()
         rt.fill(text)
+
+        return rt
+    
+    def initRightView(self, parent):
+        
+        rt = RightFrame(parent)
+        rt.packself()
 
         return rt
 
